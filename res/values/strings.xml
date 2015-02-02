@@ -2,7 +2,11 @@
 <resources>
 
     <string name="app_name">Pokemaps</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string-array name="tab_names">
+    	<item>Detail<item>
+    	<item>Dex</item>
+    	<item>Map</item>
+    </string-array>
 
 </resources>

@@ -5,12 +5,31 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class PokedexActivity extends Activity {
+public class PokedexActivity extends FragmentActivity implements ActionBar.TabListener{
+
+
+	private ViewPager viewpager;
+	private TabsPagerAdapter mAdapter;
+	private ActionBar actionBar;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pokedex);
+
+		viewpager = (ViewPager) findViewById(R.id.pager);
+		actionBar = getActionBar();
+		mAdapter.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		resources = getResources();
+
+		String[] tabs = res.getStringArray(R.array.tab_names);
+
+		for (String tab : tabs){
+			actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
+		}
+
 	}
 
 	@Override
