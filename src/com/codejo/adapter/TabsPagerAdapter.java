@@ -1,24 +1,33 @@
 package com.codejo.adapter;
 
-public class TabPagerAdapter extends FragmentPagerAdater{
+import com.codejo.sections.*;
+
+import android.support.v4.app.Fragment;
+import  android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentManager;
+
+
+
+public class TabsPagerAdapter extends FragmentPagerAdapter{
 	private final int TOTAL_TABS = 2;
 	private final int MAP_FRAGMENT_NUM = 0;
 	private final int LIST_FRAGMENT_NUM = 1;
 
-	public TabPagerAdapter(FragmentManager fm){
+	public TabsPagerAdapter(android.support.v4.app.FragmentManager fm){
 		super(fm);
 	}
 	@Override
 	public Fragment getItem(int index){
+		Fragment swipe_to_fragment;
 		switch(index){
 			case MAP_FRAGMENT_NUM:
-				return new PokeMapFragment();
+				swipe_to_fragment = new MapFragment();
 			case LIST_FRAGMENT_NUM:
-				return new PokeListFragment();
+				swipe_to_fragment = new ListFragment();
 		}
 		return null;
 	}
-	Override
+	@Override
 	public int getCount(){
 		return TOTAL_TABS;
 	}

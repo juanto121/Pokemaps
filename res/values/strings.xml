@@ -4,7 +4,7 @@
     <string name="app_name">Pokemaps</string>
     <string name="action_settings">Settings</string>
     <string-array name="tab_names">
-    	<item>Detail<item>
+    	<item>Detail</item>
     	<item>Dex</item>
     	<item>Map</item>
     </string-array>
