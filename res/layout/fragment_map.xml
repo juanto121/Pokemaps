@@ -7,7 +7,7 @@
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text ="PokeMaps"
+        android:text ="Maps Pokemon"
         android:textSize="21dp"
         android:layout_centerInParent="true"
         />

@@ -18,14 +18,14 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
 	}
 	@Override
 	public Fragment getItem(int index){
-		Fragment swipe_to_fragment;
+		Fragment swipe_to_fragment = null;
 		switch(index){
-			case MAP_FRAGMENT_NUM:
-				swipe_to_fragment = new MapFragment();
 			case LIST_FRAGMENT_NUM:
-				swipe_to_fragment = new ListFragment();
+				swipe_to_fragment = new MapFragment(); break;
+			case MAP_FRAGMENT_NUM:
+				swipe_to_fragment = new ListFragment(); break;
 		}
-		return null;
+		return swipe_to_fragment;
 	}
 	@Override
 	public int getCount(){
