@@ -10,8 +10,8 @@ import android.support.v4.app.FragmentManager;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter{
 	private final int TOTAL_TABS = 2;
-	private final int MAP_FRAGMENT_NUM = 0;
-	private final int LIST_FRAGMENT_NUM = 1;
+	private final int MAP_FRAGMENT_INDEX= 0;
+	private final int LIST_FRAGMENT_INDEX= 1;
 
 	public TabsPagerAdapter(android.support.v4.app.FragmentManager fm){
 		super(fm);
@@ -20,9 +20,9 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
 	public Fragment getItem(int index){
 		Fragment swipe_to_fragment = null;
 		switch(index){
-			case LIST_FRAGMENT_NUM:
+			case LIST_FRAGMENT_INDEX:
 				swipe_to_fragment = new MapFragment(); break;
-			case MAP_FRAGMENT_NUM:
+			case MAP_FRAGMENT_INDEX:
 				swipe_to_fragment = new ListFragment(); break;
 		}
 		return swipe_to_fragment;
