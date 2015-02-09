@@ -3,14 +3,13 @@ import com.codejo.adapter.*;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
+
+
 
 public class PokedexFragmentActivity extends FragmentActivity implements ActionBar.TabListener{
 
@@ -68,7 +67,7 @@ public class PokedexFragmentActivity extends FragmentActivity implements ActionB
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		//viewpager.setCurrentItem(tab.getPosition());
+		viewpager.setCurrentItem(tab.getPosition());
 	}
 
 
