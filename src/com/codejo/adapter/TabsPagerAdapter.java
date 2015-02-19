@@ -21,7 +21,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
 		Fragment swipe_to_fragment = null;
 		switch(index){
 			case LIST_FRAGMENT_INDEX:
-				swipe_to_fragment = new MapFragment(); break;
+				swipe_to_fragment = new PokeMapFragment(); break;
 			case MAP_FRAGMENT_INDEX:
 				swipe_to_fragment = new ListFragment(); break;
 		}
