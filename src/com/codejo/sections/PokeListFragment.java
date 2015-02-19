@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ListFragment extends Fragment{
+public class PokeListFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container , Bundle savedInstances ){
 		
 		View rootView = inflater.inflate(R.layout.fragment_list, container, false);

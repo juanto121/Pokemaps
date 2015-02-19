@@ -14,10 +14,12 @@ import android.util.Log;
 
 
 public class PokeApiDownloader{
+	
 	private static final String TAG = "PokeApiDownloader";
 	private static final String POKEDEX_URL = "http://pokeapi.co/api/v1/pokedex/1/";
 	private static final int HTTP_OK = 200;
 	private static byte[] buffer = new byte[1024];
+	
 	public static synchronized String downloadPokedex(String... params){
 		String pokedex = null;
 		HttpClient client = new DefaultHttpClient();
