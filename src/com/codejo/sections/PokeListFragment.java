@@ -45,9 +45,10 @@ public class PokeListFragment extends Fragment{
 	
 	public void setPokemons(ArrayList<Pokemon> pokedex){
 		this.pokemonList = pokedex;
-		String pokedexArray[] = new String[this.pokemonList.size()];
-		ListAdapter pokedexAdapter = new ArrayAdapter<String>(this.getActivity().getApplicationContext(),
-															 R.layout.list_row_layout,pokedexArray);
+		Pokemon pokedexArray[] = new Pokemon[this.pokemonList.size()];
+		
+		ListAdapter pokedexAdapter = new ArrayAdapter<Pokemon>(this.getActivity().getApplicationContext(),
+															 R.layout.list_row_layout,pokemonList.toArray(pokedexArray));
 		this.pokeListView.setAdapter(pokedexAdapter);
 	}
 	

@@ -8,5 +8,11 @@ public class Pokemon {
 		name = pokename;
 		uri = pokeuri;
 	}
+
+	@Override
+	public String toString() {
+		return "Pokemon [name=" + name + "]";
+	}
+	
 	
 }
