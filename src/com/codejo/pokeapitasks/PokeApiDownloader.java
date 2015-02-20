@@ -21,11 +21,15 @@ public class PokeApiDownloader{
 	private static byte[] buffer = new byte[1024];
 	
 	public static synchronized String downloadPokedex(String... params){
+		
+		
+		
 		String pokedex = null;
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(POKEDEX_URL);
 
 		try{
+			Log.d(TAG,"Pokeapi access start");
 			HttpResponse response = client.execute(request);
 			StatusLine status = response.getStatusLine();
 			if(status.getStatusCode() != HTTP_OK){
@@ -46,6 +50,8 @@ public class PokeApiDownloader{
 			//Throw connection exception.
 			Log.d(TAG,"Error during client.execute() -- ");
 		}
+
+		Log.d(TAG,"Pokeapi access Ended");
 		return pokedex;
 	}
 }

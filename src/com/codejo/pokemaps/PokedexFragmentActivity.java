@@ -23,10 +23,11 @@ public class PokedexFragmentActivity extends FragmentActivity implements ActionB
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pokedex_fragment);
-	
+		
 		viewpager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(this.getSupportFragmentManager());
+		
 		
 		viewpager.setAdapter(mAdapter);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

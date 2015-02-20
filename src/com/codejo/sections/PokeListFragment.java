@@ -23,11 +23,14 @@ public class PokeListFragment extends Fragment{
 	private ArrayList<Pokemon> pokemonList;
 	private static String TAG = "PokeListFragment";
 	
+	public PokeListFragment(){
+		setRetainInstance(true);
+	}
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container , Bundle savedInstances ){
 		View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 		
 		this.pokeListView = (ListView) rootView.findViewById(R.id.pokeList);
-		
 		PokeApiAsyncList pokeapiTask = new PokeApiAsyncList(this);
 		try{
 			pokeapiTask.execute("");
@@ -35,11 +38,15 @@ public class PokeListFragment extends Fragment{
 			Log.d(TAG, "Error during execute to pokeApiAsyncList");
 		}
 		
-		final Object[] data = (Object[])getActivity().getLastCustomNonConfigurationInstance();
-		if(data != null){
+		//final Object[] data = (Object[])getActivity().getLastCustomNonConfigurationInstance();
+		/*if(data != null){
 			this.pokemonList = (ArrayList<Pokemon>) data[0];
-			String[] pokemonArray = new String[pokemonList.size()];
+			Pokemon pokedexArray[] = new Pokemon[this.pokemonList.size()];
+			ListAdapter pokedexAdapter = new ArrayAdapter<Pokemon>(this.getActivity().getApplicationContext(),
+					 R.layout.list_row_layout,pokemonList.toArray(pokedexArray));
+			this.pokeListView.setAdapter(pokedexAdapter);
 		}
+		*/
 		return rootView;
 	}
 	

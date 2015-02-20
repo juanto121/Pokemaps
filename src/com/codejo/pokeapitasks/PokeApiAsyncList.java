@@ -8,8 +8,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+
 
 import com.codejo.data.Pokemon;
 import com.codejo.sections.PokeListFragment;

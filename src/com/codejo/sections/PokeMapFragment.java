@@ -29,6 +29,10 @@ public class PokeMapFragment extends Fragment{
 	private MapView mapView;
 	private GoogleMap map;
 	
+	public PokeMapFragment(){
+		setRetainInstance(true);
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{	
