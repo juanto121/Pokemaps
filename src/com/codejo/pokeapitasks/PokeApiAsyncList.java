@@ -8,19 +8,21 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
-import com.codejo.data.Pokemon;;
+import com.codejo.data.Pokemon;
+import com.codejo.sections.PokeListFragment;
 
 public class PokeApiAsyncList extends AsyncTask<String,Void,String>{
 	
-	private FragmentActivity pokedexFragmentActivity;
+	private PokeListFragment pokedexFragment;
 	private Context pokedexContext;
 	
-	public PokeApiAsyncList(FragmentActivity pokedex_activity){
+	public PokeApiAsyncList(PokeListFragment pokedex_fragment){
 		super();
-		this.pokedexFragmentActivity = pokedex_activity;
-		this.pokedexContext = this.pokedexFragmentActivity.getApplicationContext();
+		this.pokedexFragment= pokedex_fragment;
+		this.pokedexContext = this.pokedexFragment.getActivity().getApplicationContext();
 	}
 	
 	protected void onPreExecute(){
@@ -52,7 +54,7 @@ public class PokeApiAsyncList extends AsyncTask<String,Void,String>{
 			//TODO add exception for handling malformed JSON
 		}
 		
-		//this.pokedexFragmentActivity.setPokemons(pokemonData);
+		this.pokedexFragment.setPokemons(pokemonData);
 		
 	}
 }
