@@ -31,9 +31,13 @@ public class PokeListFragment extends Fragment{
 		View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 		
 		this.pokeListView = (ListView) rootView.findViewById(R.id.pokeList);
+		
+		//TODO: CHECK INTERNAL STORAGE for already downloaded pokedex.
+		
 		PokeApiAsyncList pokeapiTask = new PokeApiAsyncList(this);
 		try{
 			pokeapiTask.execute("");
+			
 		}catch(Exception e){
 			Log.d(TAG, "Error during execute to pokeApiAsyncList");
 		}

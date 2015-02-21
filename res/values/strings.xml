@@ -3,6 +3,7 @@
 
     <string name="app_name">Pokemaps</string>
     <string name="action_settings">Settings</string>
+    <string name="pokemons_caught">0 de 776</string>
     <string-array name="tab_names">
     	<item>Dex</item>
     	<item>Map</item>

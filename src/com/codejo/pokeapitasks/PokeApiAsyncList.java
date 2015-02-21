@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
 
-
+import com.codejo.adapter.PokeapiAdapter;
 import com.codejo.data.Pokemon;
 import com.codejo.sections.PokeListFragment;
 
@@ -35,25 +35,8 @@ public class PokeApiAsyncList extends AsyncTask<String,Void,String>{
 	}
 
 	protected void onPostExecute(String result){
-		ArrayList<Pokemon> pokemonData = new ArrayList<Pokemon>();
-		try{
-			JSONObject responseObject = new JSONObject(result);
-			JSONArray pokemons = responseObject.getJSONArray("pokemon");
-			int pokemons_length = pokemons.length(), index = pokemons_length;
-			
-			while( index-- >= 0 ){
-				JSONObject jsonPokemon = pokemons.getJSONObject(index);
-				String name = jsonPokemon.getString("name");
-				String uri  = jsonPokemon.getString("resource_uri");
-				Pokemon pokemon_to_add = new Pokemon(name, uri);
-				pokemonData.add(pokemon_to_add);
-			}
-			
-		}catch(Exception e){
-			//TODO add exception for handling malformed JSON
-		}
-		
+		ArrayList<Pokemon> pokemonData = PokeapiAdapter.parsePokedex(result);
 		this.pokedexFragment.setPokemons(pokemonData);
-		
+		//save pokedex to internal storage.
 	}
 }
