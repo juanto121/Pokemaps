@@ -9,7 +9,7 @@ import com.codejo.data.Pokemon;
 
 public  class PokeapiAdapter {
 	
-	public static ArrayList<Pokemon> parsePokedex(String jsonPokedex){
+	public static ArrayList<Pokemon> parsePokedexFromApi(String jsonPokedex){
 		ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
 		try{
 			JSONObject responseObject = new JSONObject(jsonPokedex);
@@ -29,6 +29,11 @@ public  class PokeapiAdapter {
 		}
 		
 		return pokedex;
+	}
+	
+	public static ArrayList<Pokemon> parsePokedexFromStorage(String jsonPokedex){
+		//TODO read JSON for stored Pokemons includes caught value and sprite resource (explicit .png uri)
+		return null;
 	}
 	
 	public static Pokemon parsePokemon(){

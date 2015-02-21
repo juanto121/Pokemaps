@@ -8,7 +8,8 @@ public class Pokemon {
 	private String description_uri;
 	
 	public Pokemon(String pokename, String pokeuri){
-		name = pokename;
+		
+		name = pokename.substring(0, 1).toUpperCase() + pokename.substring(1);
 		uri = pokeuri;
 		caught = false;
 	}

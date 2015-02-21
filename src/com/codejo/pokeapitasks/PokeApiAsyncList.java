@@ -35,7 +35,7 @@ public class PokeApiAsyncList extends AsyncTask<String,Void,String>{
 	}
 
 	protected void onPostExecute(String result){
-		ArrayList<Pokemon> pokemonData = PokeapiAdapter.parsePokedex(result);
+		ArrayList<Pokemon> pokemonData = PokeapiAdapter.parsePokedexFromApi(result);
 		this.pokedexFragment.setPokemons(pokemonData);
 		//save pokedex to internal storage.
 	}

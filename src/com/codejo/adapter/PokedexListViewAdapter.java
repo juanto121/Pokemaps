@@ -4,6 +4,7 @@ import com.codejo.data.Pokemon;
 import com.codejo.pokemaps.R;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class PokedexListViewAdapter extends ArrayAdapter<Pokemon>{
 		Pokemon pokemon = getItem(position);
 		TextView pokemonTextView = (TextView) view.findViewById(R.id.listItem);
 		pokemonTextView.setText(pokemon.toString());
+		pokemonTextView.setGravity(Gravity.CENTER_VERTICAL);
 		ImageView picture = (ImageView) view.findViewById(R.id.pokemonPicture);
 		picture.setImageResource(R.drawable.pokeball_pixe_sm_gray);
 		return view;
