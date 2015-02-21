@@ -3,6 +3,7 @@ package com.codejo.sections;
 import java.util.ArrayList;
 
 import com.codejo.pokeapitasks.PokeApiAsyncList;
+import com.codejo.adapter.PokedexListViewAdapter;
 import com.codejo.data.Pokemon;
 import com.codejo.pokemaps.R;
 
@@ -58,8 +59,8 @@ public class PokeListFragment extends Fragment{
 		this.pokemonList = pokedex;
 		Pokemon pokedexArray[] = new Pokemon[this.pokemonList.size()];
 		
-		ListAdapter pokedexAdapter = new ArrayAdapter<Pokemon>(this.getActivity().getApplicationContext(),
-															 R.layout.list_row_layout,pokemonList.toArray(pokedexArray));
+		ListAdapter pokedexAdapter = new PokedexListViewAdapter(this.getActivity().getApplicationContext(),
+															 pokemonList.toArray(pokedexArray));
 		this.pokeListView.setAdapter(pokedexAdapter);
 	}
 	
