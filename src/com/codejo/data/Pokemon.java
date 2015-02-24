@@ -34,6 +34,30 @@ public class Pokemon {
 	public void setDescription_uri(String description_uri) {
 		this.description_uri = description_uri;
 	}
+
+	public boolean isCaught() {
+		return caught;
+	}
+
+	public void setCaught(boolean caught) {
+		this.caught = caught;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
 	
 	
 	

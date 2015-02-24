@@ -30,7 +30,7 @@ public class PokeMapFragment extends Fragment{
 	private GoogleMap map;
 	
 	public PokeMapFragment(){
-		setRetainInstance(true);
+		//setRetainInstance(true);
 	}
 	
 	@Override

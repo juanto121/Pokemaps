@@ -46,19 +46,19 @@ public class PokedexFragmentActivity extends FragmentActivity implements ActionB
 			
 			@Override
 			public void onPageSelected(int position) {
-				// TODO Auto-generated method stub
+				
 				actionBar.setSelectedNavigationItem(position);
 			}
 			
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 		});
@@ -74,14 +74,14 @@ public class PokedexFragmentActivity extends FragmentActivity implements ActionB
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 

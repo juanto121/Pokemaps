@@ -2,8 +2,14 @@ package com.codejo.sections;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.codejo.pokeapitasks.PokeApiAsyncList;
+import com.codejo.pokeapitasks.PokedexAsyncStorage;
 import com.codejo.adapter.PokedexListViewAdapter;
+import com.codejo.adapter.PokedexParser;
 import com.codejo.data.Pokemon;
 import com.codejo.pokemaps.R;
 
@@ -43,18 +49,26 @@ public class PokeListFragment extends Fragment{
 			Log.d(TAG, "Error during execute to pokeApiAsyncList");
 		}
 		
-		//final Object[] data = (Object[])getActivity().getLastCustomNonConfigurationInstance();
-		/*if(data != null){
-			this.pokemonList = (ArrayList<Pokemon>) data[0];
-			Pokemon pokedexArray[] = new Pokemon[this.pokemonList.size()];
-			ListAdapter pokedexAdapter = new ArrayAdapter<Pokemon>(this.getActivity().getApplicationContext(),
-					 R.layout.list_row_layout,pokemonList.toArray(pokedexArray));
-			this.pokeListView.setAdapter(pokedexAdapter);
-		}
-		*/
 		return rootView;
 	}
 	
+	
+	
+	@Override
+	public void onPause() {
+		
+		String json_pokedex = PokedexParser.parsePokedexForStorage(this.pokemonList);
+		
+		PokedexAsyncStorage pokedexStorage = new PokedexAsyncStorage(this);
+		try{
+			pokedexStorage.execute(json_pokedex);
+		}catch(Exception e){
+			Log.d(TAG, "Error during pokedex storage task");
+		}
+		
+		super.onPause();
+	}
+
 	public void setPokemons(ArrayList<Pokemon> pokedex){
 		this.pokemonList = pokedex;
 		Pokemon pokedexArray[] = new Pokemon[this.pokemonList.size()];

@@ -21,9 +21,7 @@ public class PokeApiDownloader{
 	private static byte[] buffer = new byte[1024];
 	
 	public static synchronized String downloadPokedex(String... params){
-		
-		
-		
+	
 		String pokedex = null;
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(POKEDEX_URL);
