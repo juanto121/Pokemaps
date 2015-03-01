@@ -1,5 +1,6 @@
 package com.codejo.sections;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -7,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.codejo.pokeapitasks.PokeApiAsyncList;
+import com.codejo.pokeapitasks.PokedexAsyncRetriever;
 import com.codejo.pokeapitasks.PokedexAsyncStorage;
 import com.codejo.adapter.PokedexListViewAdapter;
 import com.codejo.adapter.PokedexParser;
@@ -29,6 +31,7 @@ public class PokeListFragment extends Fragment{
 	private LayoutInflater layoutInflater;
 	private ArrayList<Pokemon> pokemonList;
 	private static String TAG = "PokeListFragment";
+	private static String FILENAME = "pokedex.data";
 	
 	public PokeListFragment(){
 		setRetainInstance(true);
@@ -40,13 +43,22 @@ public class PokeListFragment extends Fragment{
 		this.pokeListView = (ListView) rootView.findViewById(R.id.pokeList);
 		
 		//TODO: CHECK INTERNAL STORAGE for already downloaded pokedex.
-		
-		PokeApiAsyncList pokeapiTask = new PokeApiAsyncList(this);
-		try{
-			pokeapiTask.execute("");
-			
-		}catch(Exception e){
-			Log.d(TAG, "Error during execute to pokeApiAsyncList");
+		if( checkPokedexInStorage() ){
+			PokedexAsyncRetriever pokedexRetriever = new PokedexAsyncRetriever(this);
+			try{
+				pokedexRetriever.execute("");
+			}catch(Exception e ){
+				Log.d(TAG, "Error during execute to pokeApiAsyncRetriever");
+				
+			}
+		}else{
+			PokeApiAsyncList pokeapiTask = new PokeApiAsyncList(this);
+			try{
+				pokeapiTask.execute("");
+				
+			}catch(Exception e){
+				Log.d(TAG, "Error during execute to pokeApiAsyncList");
+			}
 		}
 		
 		return rootView;
@@ -54,6 +66,11 @@ public class PokeListFragment extends Fragment{
 	
 	
 	
+	private boolean checkPokedexInStorage() {
+		File file = this.getActivity().getApplicationContext().getFileStreamPath(FILENAME);
+		return file.exists();
+	}
+
 	@Override
 	public void onPause() {
 		

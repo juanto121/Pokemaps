@@ -14,6 +14,16 @@ public class Pokemon {
 		caught = false;
 	}
 
+	public Pokemon(String name, String uri, boolean caught,
+			String sprite_uri) {
+	
+		this(name, uri);
+		
+		this.caught = caught;
+		this.sprite_uri = sprite_uri;
+		
+	}
+
 	@Override
 	public String toString() {
 		return name;

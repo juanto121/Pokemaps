@@ -27,7 +27,7 @@ public  class PokedexParser {
 			}
 			
 			
-		}catch(Exception e){
+		}catch(JSONException e){
 			//TODO add exception for handling malformed JSON
 		}
 		
@@ -36,12 +36,26 @@ public  class PokedexParser {
 	
 	public static ArrayList<Pokemon> parsePokedexFromStorage(String jsonPokedex){
 		//TODO read JSON for stored Pokemons includes caught value and sprite resource (explicit .png uri)
-		return null;
-	}
-	
-	public static String parsePokemonForStorage(Pokemon pokemon){
-		//TODO parse a single pokemon.
-		return null;
+		
+		ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
+		try {
+			JSONArray storedPokedex = new JSONArray(jsonPokedex);
+			int pokedex_lenght = storedPokedex.length();
+			for(int index = 0; index < pokedex_lenght; index ++){
+				JSONObject jsonPokemon = storedPokedex.getJSONObject(index);
+				String name = jsonPokemon.getString("name");
+				String uri = jsonPokemon.getString("uri");
+				boolean caught = jsonPokemon.getBoolean("caught");
+				String sprite_uri = jsonPokemon.getString("sprite_uri");
+				Pokemon pokemon_to_add = new Pokemon(name,uri,caught,sprite_uri);
+				pokedex.add(pokemon_to_add);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return pokedex;
 	}
 	
 	public static String parsePokedexForStorage(ArrayList<Pokemon> pokedex){
@@ -76,28 +90,4 @@ public  class PokedexParser {
 		
 		return json_pokedex.toString();
 	}
-
-	/*
-	 * JSONObject pokemon = new JSONObject();
-		try {
-			//TODO check for null on each pokemon on the list.
-			pokemon.put("name",pokemonList.get(0).getName());
-			pokemon.put("uri",pokemonList.get(0).getUri());
-			pokemon.put("sprite_uri",pokemonList.get(0).getSprite_uri());
-			pokemon.put("caught", pokemonList.get(0).isCaught());
-			
-			JSONArray json_pokedex = new JSONArray();
-			json_pokedex.put(pokemon);
-			
-			
-			
-			System.out.println(json_pokedex.toString());
-		} catch (JSONException e) {
-			// TODO Catch malformed json exception
-			e.printStackTrace();
-		}
-		
-	 * 
-	 */
-	
 }

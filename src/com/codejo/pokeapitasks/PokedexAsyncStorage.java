@@ -16,7 +16,7 @@ import android.util.Log;
 
 public class PokedexAsyncStorage extends AsyncTask<String,Void,String>{
 
-	private static final String TAG = "PokeAsyncStorage";
+	private static final String TAG = "PokedexAsyncStorage";
 	private static String FILENAME = "pokedex.data";
 	private PokeListFragment pokedexFragment;
 	private Context pokeMapsContext;
@@ -34,7 +34,7 @@ public class PokedexAsyncStorage extends AsyncTask<String,Void,String>{
 		
 		FileOutputStream fos = null;
 		try {
-			 fos = pokeMapsContext.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+			fos = pokeMapsContext.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 			fos.write(arg0[0].getBytes());
 		} catch (FileNotFoundException e) {
 			// TODO Catch when file pokedex.data not found.
@@ -56,7 +56,7 @@ public class PokedexAsyncStorage extends AsyncTask<String,Void,String>{
 
 	@Override
 	protected void onPostExecute(String result) {
-		// TODO Auto-generated method stub
+		// TODO Do I really need this method, tell the user pokedex saved ?
 		super.onPostExecute(result);
 	}
 	
