@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.codejo.pokeapitasks.PokeApiAsyncList;
+import com.codejo.pokeapitasks.PokeApiImageRetriever;
 import com.codejo.pokeapitasks.PokedexAsyncRetriever;
 import com.codejo.pokeapitasks.PokedexAsyncStorage;
 import com.codejo.adapter.PokedexListViewAdapter;
@@ -42,11 +43,13 @@ public class PokeListFragment extends Fragment{
 		
 		this.pokeListView = (ListView) rootView.findViewById(R.id.pokeList);
 		
-		//TODO: CHECK INTERNAL STORAGE for already downloaded pokedex.
+		
 		if( checkPokedexInStorage() ){
 			PokedexAsyncRetriever pokedexRetriever = new PokedexAsyncRetriever(this);
+			PokeApiImageRetriever imageRetriever = new PokeApiImageRetriever(this);
 			try{
 				pokedexRetriever.execute("");
+				imageRetriever.execute("api/v1/sprite/4/");
 			}catch(Exception e ){
 				Log.d(TAG, "Error during execute to pokeApiAsyncRetriever");
 				
@@ -64,8 +67,7 @@ public class PokeListFragment extends Fragment{
 		return rootView;
 	}
 	
-	
-	
+
 	private boolean checkPokedexInStorage() {
 		File file = this.getActivity().getApplicationContext().getFileStreamPath(FILENAME);
 		return file.exists();
@@ -93,6 +95,23 @@ public class PokeListFragment extends Fragment{
 		ListAdapter pokedexAdapter = new PokedexListViewAdapter(this.getActivity().getApplicationContext(),
 															 pokemonList.toArray(pokedexArray));
 		this.pokeListView.setAdapter(pokedexAdapter);
+	}
+	
+	public void changePokemonImage(String[] real_image_uri){
+		
+		//TODO real_img_uri[0] name is venusaur_auto
+		
+		int pokeListLenght = pokemonList.size();
+		for( int index = 0; index < pokeListLenght; index ++ ){
+			Pokemon poke = pokemonList.get(index);
+			if( poke.getName().equals(real_image_uri[0])){
+				poke.setRealSpriteUri(real_image_uri[1]);
+				break;
+			}
+		
+		}
+		
+		
 	}
 	
 }

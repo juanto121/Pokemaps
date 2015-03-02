@@ -30,7 +30,7 @@ public class PokeApiAsyncList extends AsyncTask<String,Void,String>{
 	}
 	
 	protected String doInBackground(String... input){
-		String result = PokeApiDownloader.downloadPokedex("");
+		String result = PokeApiDownloader.downloadApiResource(PokeApiDownloader.POKEDEX_URI);
 		return result;
 	}
 

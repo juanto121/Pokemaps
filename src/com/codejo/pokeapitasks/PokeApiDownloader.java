@@ -16,15 +16,24 @@ import android.util.Log;
 public class PokeApiDownloader{
 	
 	private static final String TAG = "PokeApiDownloader";
-	private static final String POKEDEX_URL = "http://pokeapi.co/api/v1/pokedex/1/";
+	private static final String POKEAPI_URI = "http://pokeapi.co/";
+	public static final String POKEDEX_URI = "api/v1/pokedex/1/";
+	
 	private static final int HTTP_OK = 200;
 	private static byte[] buffer = new byte[1024];
 	
-	public static synchronized String downloadPokedex(String... params){
+	/*
+	 * Synchronized method for getting JSON resource from pokeapi.co/api/v1/
+	 * 
+	 * @param specific path for a resource: eg. pokedex/1/ or sprite/1/
+	 * @return JSON formated String of the resource.
+	 */
 	
-		String pokedex = null;
+	public static synchronized String downloadApiResource(String... specific_resource){
+	
+		String resource = null;
 		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet(POKEDEX_URL);
+		HttpGet request = new HttpGet(POKEAPI_URI + specific_resource[0]);
 
 		try{
 			Log.d(TAG,"Pokeapi access start");
@@ -42,7 +51,7 @@ public class PokeApiDownloader{
 			while((readCount=inputStream.read(buffer)) != -1){
 				content.write(buffer,0,readCount);
 			}
-			pokedex = new String(content.toByteArray());
+			resource = new String(content.toByteArray());
 
 		}catch(Exception e){
 			//Throw connection exception.
@@ -50,6 +59,6 @@ public class PokeApiDownloader{
 		}
 
 		Log.d(TAG,"Pokeapi access Ended");
-		return pokedex;
+		return resource;
 	}
 }

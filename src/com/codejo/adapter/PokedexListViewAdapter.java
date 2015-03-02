@@ -14,8 +14,10 @@ import android.widget.TextView;
 
 public class PokedexListViewAdapter extends ArrayAdapter<Pokemon>{
 
+	
 	public PokedexListViewAdapter(Context context, Pokemon[] resource) {
 		super(context, R.layout.list_row_layout,resource);
+		
 	}
 
 	@Override
@@ -23,14 +25,19 @@ public class PokedexListViewAdapter extends ArrayAdapter<Pokemon>{
 		LayoutInflater inflater = LayoutInflater.from(getContext());
 		View view = inflater.inflate(R.layout.list_row_layout, parent,false);
 		Pokemon pokemon = getItem(position);
+		//TODO CARE HERE ONLY TESTING!!!
+		if(position == 2) pokemon.setCaught(true);
 		TextView pokemonTextView = (TextView) view.findViewById(R.id.listItem);
 		pokemonTextView.setText(pokemon.toString());
 		pokemonTextView.setGravity(Gravity.CENTER_VERTICAL);
 		ImageView picture = (ImageView) view.findViewById(R.id.pokemonPicture);
-		picture.setImageResource(R.drawable.pokeball_pixe_sm_gray);
+		if(pokemon.isCaught()){
+			//TODO change for the image not the textView.
+			pokemonTextView.setText(pokemon.toString() + pokemon.getRealImage());
+		}else{
+			picture.setImageResource(R.drawable.pokeball_pixe_sm_gray);
+		}
 		return view;
 	}
-	
-	
-	
+
 }

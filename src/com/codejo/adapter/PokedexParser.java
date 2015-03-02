@@ -63,7 +63,7 @@ public  class PokedexParser {
 		JSONArray json_pokedex = new JSONArray();
 		JSONObject json_pokemon;
 		
-		String pokemon_name, pokemon_uri, pokemon_sprite_uri;
+		String pokemon_name, pokemon_uri, pokemon_sprite_uri, pokemon_sprite;
 		boolean pokemon_caught;
 		
 		int pokedex_lenght = pokedex.size();
@@ -73,12 +73,15 @@ public  class PokedexParser {
 			pokemon_uri = pokedex.get(index).getUri();
 			pokemon_sprite_uri = pokedex.get(index).getUri();
 			pokemon_caught = pokedex.get(index).isCaught();
+			pokemon_sprite = pokedex.get(index).getRealImage();
+			
 			
 			json_pokemon = new JSONObject();
 			try {
 				json_pokemon.put( "name" , pokemon_name );
 				json_pokemon.put( "uri" , pokemon_uri);
 				json_pokemon.put( "sprite_uri", pokemon_sprite_uri);
+				json_pokemon.put("sprite", pokemon_sprite);
 				json_pokemon.put( "caught", pokemon_caught);
 				json_pokedex.put(json_pokemon);
 			} catch (JSONException e) {
@@ -89,5 +92,30 @@ public  class PokedexParser {
 		}
 		
 		return json_pokedex.toString();
+	}
+
+	/*
+	 * Parsing JSON formated sprite from Poke Api
+	 * @return String array. Index 0 : pokemon name, Index 1 : real sprite url
+	 * 			
+	 */
+	public static String[] parsePokemonSpriteFromApi(String jsonResource) {
+		
+		String pokemon_image = null;
+		String pokemon_name = null;
+		
+		try {
+			JSONObject jsonSprite = new JSONObject(jsonResource);
+			pokemon_image = jsonSprite.getString("image");
+			pokemon_name = jsonSprite.getString("name");
+			
+		} catch (JSONException e) {
+			//TODO catch malformed JSON
+			e.printStackTrace();
+		}
+		
+		//TODO there is a better way to return this image!
+		String pokemonImageBundle[] = {pokemon_name, pokemon_image}; 		
+		return pokemonImageBundle;
 	}
 }
