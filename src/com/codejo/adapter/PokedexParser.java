@@ -51,7 +51,7 @@ public  class PokedexParser {
 				pokedex.add(pokemon_to_add);
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			// TODO Catch JSON Malformed String
 			e.printStackTrace();
 		}
 		
@@ -59,7 +59,7 @@ public  class PokedexParser {
 	}
 	
 	public static String parsePokedexForStorage(ArrayList<Pokemon> pokedex){
-		//TODO
+		
 		JSONArray json_pokedex = new JSONArray();
 		JSONObject json_pokemon;
 		
@@ -117,5 +117,58 @@ public  class PokedexParser {
 		//TODO there is a better way to return this image!
 		String pokemonImageBundle[] = {pokemon_name, pokemon_image}; 		
 		return pokemonImageBundle;
+	}
+	
+	public static Pokemon parsePokemonFromApi(String jsonPokemon){
+		Pokemon monster = null;
+		String pokemon_sprite_uris[] = null;
+		int catch_rate = 0;
+		int attack,defense,health;
+		String description_uris[] = null;
+		String name = "";
+		String pokemon_uri = "";
+		try {
+			
+			JSONObject pokemonjson = new JSONObject(jsonPokemon);
+			
+			JSONArray jsonSprites = pokemonjson.getJSONArray("sprites");
+			int numOfSprites = jsonSprites.length();
+			pokemon_sprite_uris = new String[numOfSprites];
+			
+			JSONObject sprite;
+			for(int i = 0; i < numOfSprites; i++){
+				sprite = jsonSprites.getJSONObject(i);
+				pokemon_sprite_uris[i] = sprite.getString("resource_uri");				
+			}
+			
+			catch_rate = pokemonjson.getInt("catch_rate");
+			attack = pokemonjson.getInt("attack");
+			defense = pokemonjson.getInt("defense");
+			health = pokemonjson.getInt("hp");
+			
+			JSONArray jsonDescriptions = pokemonjson.getJSONArray("descriptions");
+			int numOfDescriptions = jsonDescriptions.length();
+			description_uris = new String[numOfDescriptions];
+			
+			JSONObject description;
+			for(int index = 0; index < numOfDescriptions; index++){
+				description = jsonDescriptions.getJSONObject(index);
+				description_uris[index] = description.getString("resource_uri");
+			}
+			
+			name = pokemonjson.getString("name");
+			pokemon_uri = pokemonjson.getString("resource_uri");
+					
+			
+		} catch (JSONException e) {
+			//TODO Catch malformed JSON
+		}
+		
+		monster = new Pokemon(name, pokemon_uri, true, pokemon_sprite_uris[0]);
+		
+		//TODO save all description and sprites & catchrate...
+		monster.setDescription_uri(description_uris[0]);
+		
+		return monster;
 	}
 }

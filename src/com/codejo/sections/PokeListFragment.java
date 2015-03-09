@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.codejo.pokeapitasks.PokeApiAsyncList;
 import com.codejo.pokeapitasks.PokeApiImageRetriever;
+import com.codejo.pokeapitasks.PokeApiPokemonRetriever;
 import com.codejo.pokeapitasks.PokedexAsyncRetriever;
 import com.codejo.pokeapitasks.PokedexAsyncStorage;
 import com.codejo.adapter.PokedexListViewAdapter;
@@ -31,6 +32,10 @@ public class PokeListFragment extends Fragment{
 	private ListView pokeListView;
 	private LayoutInflater layoutInflater;
 	private ArrayList<Pokemon> pokemonList;
+	private PokedexAsyncRetriever pokedexRetriever;
+	private PokeApiImageRetriever imageRetriever;
+	private PokeApiPokemonRetriever pokemonRetriever;
+
 	private static String TAG = "PokeListFragment";
 	private static String FILENAME = "pokedex.data";
 	
@@ -45,11 +50,14 @@ public class PokeListFragment extends Fragment{
 		
 		
 		if( checkPokedexInStorage() ){
-			PokedexAsyncRetriever pokedexRetriever = new PokedexAsyncRetriever(this);
-			PokeApiImageRetriever imageRetriever = new PokeApiImageRetriever(this);
+			pokedexRetriever = new PokedexAsyncRetriever(this);
+			imageRetriever = new PokeApiImageRetriever(this);
+			pokemonRetriever = new PokeApiPokemonRetriever(this);
 			try{
+				
 				pokedexRetriever.execute("");
-				imageRetriever.execute("api/v1/sprite/4/");
+				retrieveCaughtPokemon();
+				
 			}catch(Exception e ){
 				Log.d(TAG, "Error during execute to pokeApiAsyncRetriever");
 				
@@ -60,13 +68,25 @@ public class PokeListFragment extends Fragment{
 				pokeapiTask.execute("");
 				
 			}catch(Exception e){
-				Log.d(TAG, "Error during execute to pokeApiAsyncList");
+				Log.d(TAG, "Error when retrieving pokedex from API");
 			}
 		}
 		
 		return rootView;
 	}
 	
+
+	private void retrieveCaughtPokemon() {
+		int pokemon_list_length = pokemonList.size();
+		for(int index = 0; index < pokemon_list_length; index++ ){
+			Pokemon pokemon = pokemonList.get(index);
+			if(pokemon.isCaught()){
+				//TODO check if pokemon sprite & realsprite is not empty then load from stored info
+				// Download image?
+				pokemonRetriever.execute(pokemon);			
+			}
+		}
+	}
 
 	private boolean checkPokedexInStorage() {
 		File file = this.getActivity().getApplicationContext().getFileStreamPath(FILENAME);
@@ -96,6 +116,7 @@ public class PokeListFragment extends Fragment{
 															 pokemonList.toArray(pokedexArray));
 		this.pokeListView.setAdapter(pokedexAdapter);
 	}
+	
 	
 	public void changePokemonImage(String[] real_image_uri){
 		

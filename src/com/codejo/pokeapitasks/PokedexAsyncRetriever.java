@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 
 import com.codejo.adapter.PokedexParser;
@@ -41,13 +42,13 @@ public class PokedexAsyncRetriever extends AsyncTask<String,Void,String> {
 		
 		FileInputStream fis = null;
 		StringBuilder pokedex = null; 
-		
+		BufferedReader reader = null;
 		try {
 			Log.d(TAG,"Pokestorage access start");
 			fis = pokeMapsContext.openFileInput(FILENAME);
 			if(fis != null){
 
-				BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+				reader = new BufferedReader(new InputStreamReader(fis));
 				
 				pokedex = new StringBuilder();
 				
@@ -64,6 +65,7 @@ public class PokedexAsyncRetriever extends AsyncTask<String,Void,String> {
 		} finally{
 			try {
 				fis.close();
+				reader.close();
 			} catch (IOException e) {
 				// TODO Catch I/O exception when closing pokedex.data file.
 				e.printStackTrace();
