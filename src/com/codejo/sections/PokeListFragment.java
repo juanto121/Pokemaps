@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 
 
+
 import com.codejo.pokeapitasks.PokeApiAsyncList;
 import com.codejo.pokeapitasks.PokeApiPokemonRetriever;
 import com.codejo.pokeapitasks.PokedexAsyncRetriever;
@@ -23,8 +24,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class PokeListFragment extends Fragment{
 	
@@ -34,27 +37,25 @@ public class PokeListFragment extends Fragment{
 	private PokeApiPokemonRetriever pokemonRetriever;
 	private PokemonImageTask pokemonImageTask;
 	private ListAdapter pokedexAdapter;
+	private LayoutInflater inflater;
 	private static String TAG = "PokeListFragment";
 	private static String FILENAME = "pokedex.data";
 	
-	public PokeListFragment(){
-	}
+	public PokeListFragment(){}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container , Bundle savedInstances ){
 		
 		View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-		
-		//if( !this.getRetainInstance() ){	
+		this.inflater = inflater;
+			
 			this.pokeListView = (ListView) rootView.findViewById(R.id.pokeList);
 			pokedexRetriever = new PokedexAsyncRetriever(this);
 			pokemonRetriever = new PokeApiPokemonRetriever(this);
 			pokemonImageTask = new PokemonImageTask(this.getActivity().getApplicationContext());
 			
 		if( checkPokedexInStorage() ){
-			
 			try{
 				pokedexRetriever.execute("");
-				//this.retrieveCaughtPokemon();
 			}catch(Exception e ){
 				Log.d(TAG, "Error during execute to pokeApiAsyncRetriever");
 			}
@@ -66,32 +67,25 @@ public class PokeListFragment extends Fragment{
 				Log.d(TAG, "Error when retrieving pokedex from API");
 			}
 		}
-		
 		this.setRetainInstance(true);
+		
 		return rootView;
 	}
 	
 	public void catchPokemon(int pokemon_index){
-		
+		pokemonList.get(pokemon_index).setCaught(true);
 	}
 	
-
-
 	public void retrieveCaughtPokemon() {
-		/*
-		 * Only one PokemonRetriever Possible!! when 2+ Pokemon
-		 * code breaks.
-		 */
+		catchPokemon(16);
 		if(pokemonList != null){
 			int pokemon_list_length = pokemonList.size();
-			for(int index = 0; index < pokemon_list_length; index++ ){
-				Pokemon pokemon = pokemonList.get(index);
-				if(pokemon.isCaught()){
-					//TODO check if pokemon sprite & realsprite is not empty then load from stored info
-					// Download image?
-					pokemonRetriever.execute(pokemon);			
-				}
-			}
+				for(int index = 0; index < pokemon_list_length; index++ ){
+					Pokemon pokemon = pokemonList.get(index);
+					if(pokemon.isCaught()){
+						new PokeApiPokemonRetriever(this).execute(pokemon);			
+					}
+				}	
 		}
 	}
 
@@ -123,7 +117,10 @@ public class PokeListFragment extends Fragment{
 		pokedexAdapter = new PokedexListViewAdapter(this.getActivity().getApplicationContext(),
 															 pokemonList.toArray(pokedexArray), pokemonImageTask);
 		this.pokeListView.setAdapter(pokedexAdapter);
+	
+		
 	}
+	
 	
 	public void updatePokemonListView(){
 		this.updatePokemonListView(this.pokemonList);
@@ -133,6 +130,8 @@ public class PokeListFragment extends Fragment{
 	public ArrayList<Pokemon> getPokemonList() {
 		return pokemonList;
 	}
+	
+
 
 	
 }

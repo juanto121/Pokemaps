@@ -49,16 +49,16 @@ public class PokemonImageTask{
 		private String sprite_uri;
 		
 		public PokeApiImageRetriever(){
-			
 		}
 		
 		@Override
 		protected Drawable doInBackground(String... image_uri) {
-			Log.d(TAG, "Start image download");
 			sprite_uri = image_uri[0];
+
+			Log.d(TAG, "Start image download " + sprite_uri);
 			InputStream input_stream;
 			try {
-				URL url = new URL(sprite_uri);
+				URL url = new URL(PokeApiDownloader.POKEAPI_URI+sprite_uri);
 				input_stream = url.openStream();
 			} catch (MalformedURLException e) {
 				Log.e(TAG, "Malformed URL: " + e.getMessage());
@@ -77,10 +77,6 @@ public class PokemonImageTask{
 				spriteCache.put(sprite_uri, image_resource);
 			}
 			adapter.notifyDataSetChanged();
-			
 		}
-		
-	
 	}
-
 }

@@ -128,8 +128,16 @@ public  class PokedexParser {
 		return pokemonImageBundle;
 	}
 	
-	public static Pokemon parsePokemonFromApi(String jsonPokemon){
-		Pokemon monster = null;
+	
+	public static Pokemon parsePokemonFromApi(String jsonPokemon,Pokemon pokemon){
+		Pokemon monster;
+		if(pokemon == null){
+			monster = null;	
+		}
+		else{
+			monster = pokemon;
+		}
+		
 		String pokemon_sprite_uris[] = null;
 		int catch_rate = 0;
 		int attack,defense,health;
@@ -172,11 +180,13 @@ public  class PokedexParser {
 		} catch (JSONException e) {
 			//TODO Catch malformed JSON
 		}
-		
-		monster = new Pokemon(name, pokemon_uri, true, pokemon_sprite_uris[0]);
-		
-		//TODO save all description and sprites & catchrate...
-		monster.setDescription_uri(description_uris[0]);
+		if(monster == null){
+			monster = new Pokemon(name, pokemon_uri, true, pokemon_sprite_uris[0]);
+		}else{
+			monster.setSprite_uri(pokemon_sprite_uris[0]);
+			monster.setDescription_uri(description_uris[0]);
+		}
+			
 		
 		return monster;
 	}

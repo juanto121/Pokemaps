@@ -16,7 +16,7 @@ import android.util.Log;
 public class PokeApiDownloader{
 	
 	private static final String TAG = "PokeApiDownloader";
-	private static final String POKEAPI_URI = "http://pokeapi.co/";
+	public static final String POKEAPI_URI = "http://pokeapi.co/";
 	public static final String POKEDEX_URI = "api/v1/pokedex/1/";
 	
 	private static final int HTTP_OK = 200;
