@@ -8,20 +8,26 @@ public class Pokemon {
 	private String description_uri;
 	private String real_sprite_uri;
 	
+	public Pokemon(){
+		name = "";
+		uri = "";
+		caught = false;
+		sprite_uri = "";
+		description_uri = "";
+		real_sprite_uri = "";
+	}
+	
 	public Pokemon(String pokename, String pokeuri){
+		this();
 		name = pokename.substring(0, 1).toUpperCase() + pokename.substring(1);
 		uri = pokeuri;
-		caught = false;
 	}
 
 	public Pokemon(String name, String uri, boolean caught,
 			String sprite_uri) {
-	
 		this(name, uri);
-		
 		this.caught = caught;
-		this.sprite_uri = sprite_uri;
-		
+		this.sprite_uri=sprite_uri;
 	}
 
 	@Override

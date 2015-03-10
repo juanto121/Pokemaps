@@ -1,6 +1,8 @@
 package com.codejo.pokeapitasks;
 
-import android.content.Context;
+
+import java.util.ArrayList;
+
 import android.os.AsyncTask;
 
 import com.codejo.adapter.PokedexParser;
@@ -9,32 +11,32 @@ import com.codejo.sections.PokeListFragment;
 
 public class PokeApiPokemonRetriever extends AsyncTask<Pokemon,Void,Pokemon>{
 	private PokeListFragment pokedexFragment;
-	private Context pokedexContext;
+	//private Context pokedexContext;
 	
 	public PokeApiPokemonRetriever(PokeListFragment dexFragment){
 		pokedexFragment = dexFragment;
-		pokedexContext = dexFragment.getActivity().getApplicationContext();
+		//pokedexContext = dexFragment.getActivity().getApplicationContext();
 	}
 	
 	@Override
 	protected Pokemon doInBackground(Pokemon... pokemon) {
-		String result = PokeApiDownloader.downloadApiResource(pokemon[0].getUri());
-		Pokemon monster = PokedexParser.parsePokemonFromApi(result);
+		String pokemonJson = PokeApiDownloader.downloadApiResource(pokemon[0].getUri());
+		Pokemon monster = PokedexParser.parsePokemonFromApi(pokemonJson);
+		String pokeSpriteJson = PokeApiDownloader.downloadApiResource(monster.getSprite_uri());
+		String real_sprite =    PokedexParser.parseSpriteFromApi(pokeSpriteJson);
+		
+		monster.setRealSpriteUri(real_sprite);
+		pokemon[0] = monster;
 		return monster;
 	}
 
 	@Override
 	protected void onPostExecute(Pokemon pokemon) {
-		
-		/*
-		 * 
-		 * TODO parse pokemon full description
-		 * 	obtain sprite_url
-		 * 	obtain description_url
-		 * 
-		 * 
-		 */
-		
+		//TODO CHANGE ONLY TESTING!
+		ArrayList<Pokemon> pokelist = pokedexFragment.getPokemonList();
+		pokelist.remove(2);
+		pokelist.add(2, pokemon);
+		pokedexFragment.updatePokemonListView();
 		super.onPostExecute(pokemon);
 	}
 

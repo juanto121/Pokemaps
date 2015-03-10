@@ -3,10 +3,7 @@ package com.codejo.pokeapitasks;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.codejo.adapter.PokedexParser;
@@ -16,12 +13,12 @@ import com.codejo.sections.PokeListFragment;
 public class PokeApiAsyncList extends AsyncTask<String,Void,String>{
 	
 	private PokeListFragment pokedexFragment;
-	private Context pokedexContext;
+	//private Context pokedexContext;
 	
 	public PokeApiAsyncList(PokeListFragment pokedex_fragment){
 		super();
 		this.pokedexFragment= pokedex_fragment;
-		this.pokedexContext = this.pokedexFragment.getActivity().getApplicationContext();
+		//this.pokedexContext = this.pokedexFragment.getActivity().getApplicationContext();
 	}
 	
 	protected void onPreExecute(){
@@ -36,7 +33,7 @@ public class PokeApiAsyncList extends AsyncTask<String,Void,String>{
 
 	protected void onPostExecute(String result){
 		ArrayList<Pokemon> pokemonData = PokedexParser.parsePokedexFromApi(result);
-		this.pokedexFragment.setPokemons(pokemonData);
-		//save pokedex to internal storage.
+		this.pokedexFragment.updatePokemonListView(pokemonData);
+		
 	}
 }

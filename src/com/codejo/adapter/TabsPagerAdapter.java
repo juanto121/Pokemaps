@@ -4,7 +4,7 @@ import com.codejo.sections.*;
 
 import android.support.v4.app.Fragment;
 import  android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentManager;
+
 
 
 

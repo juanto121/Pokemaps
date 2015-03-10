@@ -6,9 +6,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.codejo.data.Pokemon;
 
+
+
 public  class PokedexParser {
+	
+	public static String TAG = "PokedexParser";
 	
 	public static ArrayList<Pokemon> parsePokedexFromApi(String jsonPokedex){
 		ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
@@ -47,6 +53,7 @@ public  class PokedexParser {
 				String uri = jsonPokemon.getString("uri");
 				boolean caught = jsonPokemon.getBoolean("caught");
 				String sprite_uri = jsonPokemon.getString("sprite_uri");
+				
 				Pokemon pokemon_to_add = new Pokemon(name,uri,caught,sprite_uri);
 				pokedex.add(pokemon_to_add);
 			}
@@ -63,7 +70,7 @@ public  class PokedexParser {
 		JSONArray json_pokedex = new JSONArray();
 		JSONObject json_pokemon;
 		
-		String pokemon_name, pokemon_uri, pokemon_sprite_uri, pokemon_sprite;
+		String pokemon_name, pokemon_uri, pokemon_sprite_uri, pokemon_sprite, pokemon_description_uri;
 		boolean pokemon_caught;
 		
 		int pokedex_lenght = pokedex.size();
@@ -71,17 +78,19 @@ public  class PokedexParser {
 		for(int index = 0; index < pokedex_lenght; index++){
 			pokemon_name = pokedex.get(index).getName();
 			pokemon_uri = pokedex.get(index).getUri();
-			pokemon_sprite_uri = pokedex.get(index).getUri();
+			pokemon_sprite_uri = pokedex.get(index).getSprite_uri();
 			pokemon_caught = pokedex.get(index).isCaught();
 			pokemon_sprite = pokedex.get(index).getRealImage();
+			pokemon_description_uri = pokedex.get(index).getDescription_uri();
 			
 			
 			json_pokemon = new JSONObject();
 			try {
-				json_pokemon.put( "name" , pokemon_name );
-				json_pokemon.put( "uri" , pokemon_uri);
-				json_pokemon.put( "sprite_uri", pokemon_sprite_uri);
+				json_pokemon.put("name" , pokemon_name );
+				json_pokemon.put("uri" , pokemon_uri);
+				json_pokemon.put("sprite_uri", pokemon_sprite_uri);
 				json_pokemon.put("sprite", pokemon_sprite);
+				json_pokemon.put("description_uri", pokemon_description_uri);
 				json_pokemon.put( "caught", pokemon_caught);
 				json_pokedex.put(json_pokemon);
 			} catch (JSONException e) {
@@ -170,5 +179,18 @@ public  class PokedexParser {
 		monster.setDescription_uri(description_uris[0]);
 		
 		return monster;
+	}
+
+	public static String parseSpriteFromApi(String jsonSprite) {
+		String realSprite = "";
+		try {
+			JSONObject spriteJson = new JSONObject(jsonSprite);
+			realSprite = spriteJson.getString("image");
+			
+		} catch (JSONException e) {
+			//TODO Catch malformed JSON
+			Log.e(TAG, "Error trying to parse Sprite uri");
+		}
+		return realSprite;
 	}
 }

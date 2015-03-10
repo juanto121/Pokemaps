@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 
 import com.codejo.adapter.PokedexParser;
@@ -78,8 +77,9 @@ public class PokedexAsyncRetriever extends AsyncTask<String,Void,String> {
 	@Override 
 	protected void onPostExecute(String result){
 		ArrayList<Pokemon> pokemonData = PokedexParser.parsePokedexFromStorage(result);
-		pokedexFragment.setPokemons(pokemonData);
+		pokedexFragment.updatePokemonListView(pokemonData);
 		super.onPostExecute(result);
+		pokedexFragment.retrieveCaughtPokemon();
 	}
 	
 }
