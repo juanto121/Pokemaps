@@ -36,7 +36,7 @@ public class PokeApiDownloader{
 		HttpGet request = new HttpGet(POKEAPI_URI + specific_resource[0]);
 
 		try{
-			Log.d(TAG,"Pokeapi access start");
+			Log.d(TAG,"Pokeapi access start "+ specific_resource[0]);
 			HttpResponse response = client.execute(request);
 			StatusLine status = response.getStatusLine();
 			if(status.getStatusCode() != HTTP_OK){
@@ -58,7 +58,7 @@ public class PokeApiDownloader{
 			Log.d(TAG,"Error during client.execute() -- ");
 		}
 
-		Log.d(TAG,"Pokeapi access Ended");
+		Log.d(TAG,"Pokeapi access Ended " + specific_resource[0]);
 		return resource;
 	}
 }

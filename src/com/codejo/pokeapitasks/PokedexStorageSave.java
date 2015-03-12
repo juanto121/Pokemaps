@@ -14,14 +14,14 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class PokedexAsyncStorage extends AsyncTask<String,Void,String>{
+public class PokedexStorageSave extends AsyncTask<String,Void,String>{
 
 	private static final String TAG = "PokedexAsyncStorage";
 	private static String FILENAME = "pokedex.data";
 	private PokeListFragment pokedexFragment;
 	private Context pokeMapsContext;
 	
-	public PokedexAsyncStorage(PokeListFragment pokedex_fragment){
+	public PokedexStorageSave(PokeListFragment pokedex_fragment){
 		pokedexFragment	= pokedex_fragment;
 		pokeMapsContext = pokedexFragment.getActivity().getApplicationContext();
 	}
@@ -30,7 +30,7 @@ public class PokedexAsyncStorage extends AsyncTask<String,Void,String>{
 	protected String doInBackground(String... arg0) {
 		File pokemap_directory = pokeMapsContext.getFilesDir();
 		
-		Log.d(TAG,"Directory for the app:" + pokemap_directory);
+		Log.d(TAG,"Storing Pokedex in: " + pokemap_directory);
 		
 		FileOutputStream fos = null;
 		try {

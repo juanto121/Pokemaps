@@ -36,6 +36,7 @@ public class PokemonImageTask{
 		this.adapter = adapter;
 		String url = (String) view.getTag();
 		if(spriteCache.containsKey(url)){
+			Log.d(TAG, "Sprite retrieved from HashMap");
 			return spriteCache.get(url);
 		}else{
 			new PokeApiImageRetriever().execute(url);

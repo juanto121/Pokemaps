@@ -18,7 +18,7 @@ import android.util.Log;
 
 //TODO Strategy pattern would be suitable for this behaviour Storage/Retrieval.
 
-public class PokedexAsyncRetriever extends AsyncTask<String,Void,String> {
+public class PokedexStorageRetriever extends AsyncTask<String,Void,String> {
 
 	private static final String TAG = "PokedexAsync";
 	private PokeListFragment pokedexFragment;
@@ -27,7 +27,7 @@ public class PokedexAsyncRetriever extends AsyncTask<String,Void,String> {
 	//TODO name of file should be on Configuration file. 
 	private static String FILENAME = "pokedex.data";
 	
-	public PokedexAsyncRetriever(PokeListFragment pokedex_fragment){
+	public PokedexStorageRetriever(PokeListFragment pokedex_fragment){
 		pokedexFragment = pokedex_fragment;
 		pokeMapsContext = pokedexFragment.getActivity().getApplicationContext();
 	}
@@ -43,7 +43,7 @@ public class PokedexAsyncRetriever extends AsyncTask<String,Void,String> {
 		StringBuilder pokedex = null; 
 		BufferedReader reader = null;
 		try {
-			Log.d(TAG,"Pokestorage access start");
+			Log.d(TAG,"Retrieving pokedex from storage: start");
 			fis = pokeMapsContext.openFileInput(FILENAME);
 			if(fis != null){
 
@@ -77,7 +77,7 @@ public class PokedexAsyncRetriever extends AsyncTask<String,Void,String> {
 	@Override 
 	protected void onPostExecute(String result){
 		ArrayList<Pokemon> pokemonData = PokedexParser.parsePokedexFromStorage(result);
-		pokedexFragment.updatePokemonListView(pokemonData);
+		pokedexFragment.setPokemonList(pokemonData);
 		super.onPostExecute(result);
 		pokedexFragment.retrieveCaughtPokemon();
 	}

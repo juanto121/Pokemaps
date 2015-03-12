@@ -53,8 +53,10 @@ public  class PokedexParser {
 				String uri = jsonPokemon.getString("uri");
 				boolean caught = jsonPokemon.getBoolean("caught");
 				String sprite_uri = jsonPokemon.getString("sprite_uri");
+				String real_sprite = jsonPokemon.getString("sprite");
 				
 				Pokemon pokemon_to_add = new Pokemon(name,uri,caught,sprite_uri);
+				pokemon_to_add.setRealSpriteUri(real_sprite);
 				pokedex.add(pokemon_to_add);
 			}
 		} catch (JSONException e) {

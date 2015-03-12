@@ -53,7 +53,7 @@ public class PokedexListViewAdapter extends ArrayAdapter<Pokemon>{
 			pokemonRow.pokemonSprite.setTag(pokemon.getRealImage());
 			Drawable picture = pokemonImageTask.loadSprite(this, pokemonRow.pokemonSprite);
 			if(picture != null){
-				Log.d(TAG, "Sprite retrieved from HashMap");
+				
 				pokemonRow.pokemonSprite.setImageDrawable(picture);	
 			}
 		}else{
