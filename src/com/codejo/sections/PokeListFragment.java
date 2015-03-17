@@ -80,7 +80,7 @@ public class PokeListFragment extends Fragment{
 	}
 	
 	public void retrieveCaughtPokemon() {
-		catchPokemon(2);
+		catchPokemon(4);
 		if(pokemonList != null){
 			int pokemon_list_length = pokemonList.size();
 				for(int index = 0; index < pokemon_list_length; index++ ){

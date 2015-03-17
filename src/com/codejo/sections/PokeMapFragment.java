@@ -4,30 +4,33 @@ import com.codejo.pokemaps.R;
 
 
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PokeMapFragment extends Fragment{
+public class PokeMapFragment extends Fragment implements OnMapReadyCallback{
 	
 	private static final String TAG = "PokeMapFragment";
 	private MapView mapView;
 	private GoogleMap map;
+	private LocationManager locator;
+	private String locationProvider = LocationManager.NETWORK_PROVIDER;
 	
 	public PokeMapFragment(){
 		//setRetainInstance(true);
@@ -39,9 +42,6 @@ public class PokeMapFragment extends Fragment{
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		
-		
-		
 		super.onActivityCreated(savedInstanceState);
 	}
 
@@ -51,24 +51,11 @@ public class PokeMapFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{	
-	
-		
 		View rootView = inflater.inflate(R.layout.fragment_map, container,false);
-		/*
+		locator = (LocationManager)this.getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 		mapView = (MapView) rootView.findViewById(R.id.mapview);
 		mapView.onCreate(savedInstanceState);
-		
-		map = mapView.getMap();
-		map.getUiSettings().setMyLocationButtonEnabled(true);
-		map.setMyLocationEnabled(true);
-		
-		MapsInitializer.initialize(this.getActivity());
-		    
-		
-	    // Updates the location and zoom of the MapView
-	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(0,0), 100);
-	    map.animateCamera(cameraUpdate);
-	*/
+		mapView.getMapAsync(this);
 		return rootView;
 	}
 	
@@ -77,22 +64,40 @@ public class PokeMapFragment extends Fragment{
 
 	@Override
 	public void onResume() {
-	  // mapView.onResume();
-	   // Log.d(TAG, "My location: " + map.getMyLocation());
+	    mapView.onResume();
+
 	    super.onResume();
 	}
 
 	@Override
 	public void onDestroy() {
 	    super.onDestroy();
-	    //mapView.onDestroy();
+	    mapView.onDestroy();
 	 }
 
 	 @Override
 	 public void onLowMemory() {
 	    super.onLowMemory();
-	   //mapView.onLowMemory();
+	   mapView.onLowMemory();
 	  }
+
+
+
+
+	@Override
+	public void onMapReady(GoogleMap ready_map) {
+		map = ready_map;
+		map.getUiSettings().setMyLocationButtonEnabled(true);
+		map.setMyLocationEnabled(true);
+		
+		MapsInitializer.initialize(this.getActivity());
+
+		Location currentLocation = locator.getLastKnownLocation(locationProvider);
+	    // Updates the location and zoom of the MapView
+	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()), 16);
+	    map.animateCamera(cameraUpdate);
+	
+	}
 	
 }
 
