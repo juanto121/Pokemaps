@@ -57,18 +57,22 @@ public class PokemonImageTask{
 			sprite_uri = image_uri[0];
 
 			Log.d(TAG, "Start image download " + sprite_uri);
-			InputStream input_stream;
+			InputStream input_stream = null;
 			try {
 				URL url = new URL(PokeApiDownloader.POKEAPI_URI+sprite_uri);
 				input_stream = url.openStream();
 			} catch (MalformedURLException e) {
 				Log.e(TAG, "Malformed URL: " + e.getMessage());
-				throw new RuntimeException(e);
+				//throw new RuntimeException(e);
 			} catch (IOException e) {
 				Log.e(TAG, "IO exception: "+ e.getMessage());
-				throw new RuntimeException(e);
+				//throw new RuntimeException(e);
 			}
-			return Drawable.createFromStream(input_stream, "src");
+			if(input_stream != null){
+				return Drawable.createFromStream(input_stream, "src");
+			}
+			return null;
+			
 		}
 	
 		@Override

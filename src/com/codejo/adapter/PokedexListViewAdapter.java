@@ -53,8 +53,9 @@ public class PokedexListViewAdapter extends ArrayAdapter<Pokemon>{
 			pokemonRow.pokemonSprite.setTag(pokemon.getRealImage());
 			Drawable picture = pokemonImageTask.loadSprite(this, pokemonRow.pokemonSprite);
 			if(picture != null){
-				
 				pokemonRow.pokemonSprite.setImageDrawable(picture);	
+			}else{
+				pokemonRow.pokemonSprite.setImageResource(R.drawable.ic_launcher);
 			}
 		}else{
 			pokemonRow.pokemonSprite.setImageResource(R.drawable.pokeball_pixe_sm_gray);

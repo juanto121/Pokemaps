@@ -42,3 +42,6 @@ local.properties
 
 # PDT-specific
 .buildpath
+
+#APIS
+res/values/api_key.xml

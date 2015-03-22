@@ -94,8 +94,10 @@ public class PokeMapFragment extends Fragment implements OnMapReadyCallback{
 
 		Location currentLocation = locator.getLastKnownLocation(locationProvider);
 	    // Updates the location and zoom of the MapView
-	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()), 16);
-	    map.animateCamera(cameraUpdate);
+		if(currentLocation != null){
+		    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()), 16);
+		    map.animateCamera(cameraUpdate);
+		}
 	
 	}
 	
