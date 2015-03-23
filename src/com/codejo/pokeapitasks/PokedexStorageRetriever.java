@@ -79,7 +79,6 @@ public class PokedexStorageRetriever extends AsyncTask<String,Void,String> {
 		ArrayList<Pokemon> pokemonData = PokedexParser.parsePokedexFromStorage(result);
 		pokedexFragment.setPokemonList(pokemonData);
 		super.onPostExecute(result);
-		pokedexFragment.retrieveCaughtPokemon();
 	}
 	
 }

@@ -76,8 +76,12 @@ public class PokeListFragment extends Fragment{
 	}
 	
 	public void catchPokemon(int pokemon_index){
-		pokemonList.get(pokemon_index).setCaught(true);
+		Pokemon caught = pokemonList.get(pokemon_index);
+		Log.d(TAG,"New Pokemon caught: "+ caught+ " index: "+ pokemon_index);
+		caught.setCaught(true);
+		new PokeApiPokemonRetriever(this).execute(caught);
 	}
+	
 	
 	public void retrieveCaughtPokemon() {
 		if(pokemonList != null){
@@ -85,7 +89,8 @@ public class PokeListFragment extends Fragment{
 				for(int index = 0; index < pokemon_list_length; index++ ){
 					Pokemon pokemon = pokemonList.get(index);
 					if(pokemon.isCaught() && pokemon.getRealImage().equals("")){
-						new PokeApiPokemonRetriever(this).execute(pokemon);			
+						new PokeApiPokemonRetriever(this).execute(pokemon);
+						Log.d(TAG, ""+index);
 					}
 				}	
 		}

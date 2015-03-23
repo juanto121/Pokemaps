@@ -58,7 +58,10 @@ public class PokedexListViewAdapter extends ArrayAdapter<Pokemon>{
 				pokemonRow.pokemonSprite.setImageResource(R.drawable.ic_launcher);
 			}
 		}else{
-			pokemonRow.pokemonSprite.setImageResource(R.drawable.pokeball_pixe_sm_gray);
+			if(pokemon.isCaught())
+				pokemonRow.pokemonSprite.setImageResource(R.drawable.ic_launcher);
+			else
+				pokemonRow.pokemonSprite.setImageResource(R.drawable.pokeball_pixe_sm_gray);
 		}
 		
 		return convertView;

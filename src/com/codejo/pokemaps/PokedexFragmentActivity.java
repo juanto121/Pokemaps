@@ -1,8 +1,11 @@
 package com.codejo.pokemaps;
 import com.codejo.adapter.*;
+import com.codejo.sections.PokeListFragment;
+import com.codejo.sections.PokeMapFragment;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -11,7 +14,7 @@ import android.support.v4.view.ViewPager;
 
 
 
-public class PokedexFragmentActivity extends FragmentActivity implements ActionBar.TabListener{
+public class PokedexFragmentActivity extends FragmentActivity implements ActionBar.TabListener, PokeMapFragment.OnPokemonCaughtListener{
 
 
 	private ViewPager viewpager;
@@ -19,11 +22,13 @@ public class PokedexFragmentActivity extends FragmentActivity implements ActionB
 	private ActionBar actionBar;
 
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pokedex_fragment);
 		
+
 		viewpager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(this.getSupportFragmentManager());
@@ -83,6 +88,13 @@ public class PokedexFragmentActivity extends FragmentActivity implements ActionB
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 	
 		
+	}
+
+
+	@Override
+	public void onPokemonCaught() {
+		PokeListFragment  map = (PokeListFragment)mAdapter.getFragment(TabsPagerAdapter.LIST_FRAGMENT_INDEX);
+		map.catchPokemon( (int)(Math.random()*map.getPokemonList().size()));
 	}
 
 	

@@ -21,12 +21,14 @@ public class PokeApiPokemonRetriever extends AsyncTask<Pokemon,Void,Pokemon>{
 	@Override
 	protected Pokemon doInBackground(Pokemon... pokemon) {
 		String pokemonJson = PokeApiDownloader.downloadApiResource(pokemon[0].getUri());
+		if(pokemonJson==null || pokemonJson.isEmpty()){
+			return pokemon[0];
+		}
 		Pokemon monster = PokedexParser.parsePokemonFromApi(pokemonJson,pokemon[0]);
 		String pokeSpriteJson = PokeApiDownloader.downloadApiResource(monster.getSprite_uri());
 		String real_sprite =    PokedexParser.parseSpriteFromApi(pokeSpriteJson);
-		
 		monster.setRealSpriteUri(real_sprite);
-				
+
 		return monster;
 	}
 

@@ -55,9 +55,14 @@ public  class PokedexParser {
 				String sprite_uri = jsonPokemon.getString("sprite_uri");
 				String real_sprite = jsonPokemon.getString("sprite");
 				
-				Pokemon pokemon_to_add = new Pokemon(name,uri,caught,sprite_uri);
+				Pokemon pokemon_to_add = new Pokemon(name,uri,caught);
+				pokemon_to_add.setSprite_uri(sprite_uri);
 				pokemon_to_add.setRealSpriteUri(real_sprite);
-				pokedex.add(pokemon_to_add);
+				if(pokemon_to_add.isCaught()){
+					pokedex.add(0, pokemon_to_add);
+				}else{
+					pokedex.add(pokemon_to_add);
+				}
 			}
 		} catch (JSONException e) {
 			// TODO Catch JSON Malformed String
@@ -146,6 +151,13 @@ public  class PokedexParser {
 		String description_uris[] = null;
 		String name = "";
 		String pokemon_uri = "";
+		
+		//API not reachable.
+		
+		if(jsonPokemon==null || jsonPokemon.isEmpty()){
+			return pokemon;
+		}
+		
 		try {
 			
 			JSONObject pokemonjson = new JSONObject(jsonPokemon);
@@ -178,17 +190,22 @@ public  class PokedexParser {
 			name = pokemonjson.getString("name");
 			pokemon_uri = pokemonjson.getString("resource_uri");
 					
+		
+			if(monster == null){
+				monster = new Pokemon(name, pokemon_uri, true);
+			}
+			if(numOfSprites!=0){
+				monster.setSprite_uri(pokemon_sprite_uris[0]);
+			}
+
+			if(numOfDescriptions!=0){
+				monster.setDescription_uri(description_uris[0]);
+			}
+					
 			
 		} catch (JSONException e) {
 			//TODO Catch malformed JSON
 		}
-		if(monster == null){
-			monster = new Pokemon(name, pokemon_uri, true, pokemon_sprite_uris[0]);
-		}else{
-			monster.setSprite_uri(pokemon_sprite_uris[0]);
-			monster.setDescription_uri(description_uris[0]);
-		}
-			
 		
 		return monster;
 	}

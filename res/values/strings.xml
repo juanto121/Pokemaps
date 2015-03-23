@@ -8,5 +8,7 @@
     	<item>Dex</item>
     	<item>Map</item>
     </string-array>
+    <string name="park_keyword">park</string>
+    
 
 </resources>

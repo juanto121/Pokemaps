@@ -23,11 +23,9 @@ public class Pokemon {
 		uri = pokeuri;
 	}
 
-	public Pokemon(String name, String uri, boolean caught,
-			String sprite_uri) {
+	public Pokemon(String name, String uri, boolean caught) {
 		this(name, uri);
 		this.caught = caught;
-		this.sprite_uri=sprite_uri;
 	}
 
 	@Override

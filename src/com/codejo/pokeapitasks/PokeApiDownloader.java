@@ -18,6 +18,7 @@ public class PokeApiDownloader{
 	private static final String TAG = "PokeApiDownloader";
 	public static final String POKEAPI_URI = "http://pokeapi.co/";
 	public static final String POKEDEX_URI = "api/v1/pokedex/1/";
+
 	
 	private static final int HTTP_OK = 200;
 	private static byte[] buffer = new byte[1024];
@@ -33,7 +34,10 @@ public class PokeApiDownloader{
 	
 		String resource = null;
 		HttpClient client = new DefaultHttpClient();
+	
 		HttpGet request = new HttpGet(POKEAPI_URI + specific_resource[0]);
+		
+		
 
 		try{
 			Log.d(TAG,"Pokeapi access start "+ specific_resource[0]);
@@ -41,7 +45,7 @@ public class PokeApiDownloader{
 			StatusLine status = response.getStatusLine();
 			if(status.getStatusCode() != HTTP_OK){
 				//Throw exception for invalid response HTTP_NOT_OK
-				Log.d(TAG,"Http response error");
+				Log.e(TAG,"Http response error");
 			}
 			HttpEntity entity = response.getEntity();
 			InputStream inputStream = entity.getContent();
@@ -55,7 +59,8 @@ public class PokeApiDownloader{
 
 		}catch(Exception e){
 			//Throw connection exception.
-			Log.d(TAG,"Error during client.execute() -- ");
+			Log.e(TAG,"Error during client.execute() -- ");
+			
 		}
 
 		Log.d(TAG,"Pokeapi access Ended " + specific_resource[0]);
