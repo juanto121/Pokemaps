@@ -102,7 +102,8 @@ public class PokeMapFragment extends Fragment implements OnMapReadyCallback{
 					park_location.setLongitude(park_latlng.longitude);
 					float distance;
 					if( (distance = my_current_location.distanceTo(park_location))<200){
-						catcher.onPokemonCaught();
+							Toast.makeText(getActivity().getApplicationContext(), "Has Capturado un pokemon", Toast.LENGTH_SHORT).show();
+							catcher.onPokemonCaught();
 					}else{
 						Toast.makeText(getActivity().getApplicationContext(), "Estas muy lejos del pokemon", Toast.LENGTH_SHORT).show();
 					}
