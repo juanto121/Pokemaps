@@ -1,5 +1,7 @@
 Pokemaps
 =================
+Catch pokemon by walking up to them.
+
 Aplicaciones & Servicios Inalambricos - UPB 2015
 
 Clone, Import to eclipse and remember to put your maps API key in the Manifest.
